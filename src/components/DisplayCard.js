@@ -9,7 +9,11 @@ const sunTime = (unix)=>{
     var date = new Date(unix * 1000);
     var hours = date.getHours();
     var minutes = "0" + date.getMinutes();
-    var formattedTime = hours + ':' + minutes.substr(-2)
+    if (hours > 12){
+        var formattedTime = (hours - 12) + ':' + minutes.substr(-2) + 'pm'
+    } else{
+        var formattedTime = hours + ':' + minutes.substr(-2) + 'am'
+    }
     return formattedTime;
 };
 
@@ -41,7 +45,8 @@ const DisplayCard = (props) => {
                 </div>
 
                 <div className="displayCard-date">
-                    <h4>Mon, 1:00PM, Cloudy</h4>
+                    <h4>{cityData.weather[0].description}</h4>
+                    <h4>Last Update: {sunTime(cityData.dt)}</h4>
                     <div className="date-line" />
                 </div>
 
@@ -75,7 +80,7 @@ const DisplayCard = (props) => {
                     </li>
                     <li>
                         <h4 className="text-faded">VISIBILITY</h4>
-                        <h3>10 MILES</h3>
+                        <h3>{cityData.visibility/1000} km</h3>
                     </li>
                     <li>
                         <h4 className="text-faded">HUMIDITY</h4>
@@ -83,11 +88,11 @@ const DisplayCard = (props) => {
                     </li>
                     <li>
                         <h4 className="text-faded">SUNRISE</h4>
-                        <h3>{sunTime(cityData.sys.sunrise)} am</h3>
+                        <h3>{sunTime(cityData.sys.sunrise)}</h3>
                     </li>
                     <li>
                         <h4 className="text-faded">SUNSET</h4>
-                        <h3>{sunTime(cityData.sys.sunset)} pm</h3>
+                        <h3>{sunTime(cityData.sys.sunset)}</h3>
                     </li>
                 </ul>
                 <button className="delete-card">Delete</button>

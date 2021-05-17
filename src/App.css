@@ -6,11 +6,11 @@
 .App {
   text-align: center;
   width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  /*background-image: linear-gradient(to top, #C4E3FF, #fff); */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-wrap: wrap;
+  max-width: 1100px;
+  grid-row-gap: 3rem;
+  margin: 100px auto;
 }
 

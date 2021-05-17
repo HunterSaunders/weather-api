@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import DisplayCard from './components/DisplayCard';
 import SearchCard from './components/SearchCard';
-//import fetchAPI from './utilities/fetchAPI';
 
 
 function App() {
@@ -19,19 +18,17 @@ function App() {
     }).catch(e =>{
         console.log(e)
     })
-}
-  
+  }
   const updateCities = () =>{
-    // let newCity = fetchAPI();
     fetchAPI()
-console.log(cities)
+    console.log(cities)
   }
 
   return (
     <div className="App">
-      {/* <DisplayCard 
-        name='Seattle'
-      /> */}
+      <SearchCard 
+        func = {updateCities}
+      />
       {cities.map((city, index)=>{
         return(
           <DisplayCard 
@@ -39,11 +36,7 @@ console.log(cities)
           city={city} />
         )
       })}
-      <SearchCard 
-        func = {updateCities}
-      />
     </div>
   );
 }
-
 export default App;
