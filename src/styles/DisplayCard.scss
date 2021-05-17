@@ -1,0 +1,144 @@
+.displayCard-flip{
+    --rotate-y: 180deg;
+}
+.displayCard-Container{
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,.1);
+    font-family: Arial, Helvetica, sans-serif;
+    width: 300px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0));
+    transition: 1.5s;
+    transform-style: preserve-3d;
+    
+
+    .displayCard-front, .displayCard-back{
+        position: absolute;
+        backface-visibility: hidden;
+        .text-faded{
+            opacity: .5;
+            font-weight: bold;
+        }
+    }
+    .displayCard-front{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: calc(100% - 48px);
+        .displayCard-header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            //margin-bottom: 1rem;
+            h1{
+                font-size: 25px;
+            }
+            span.menu{
+                display: flex;
+                flex-direction: row;
+                cursor: pointer;
+            }
+            .dot{
+                width: 10px;
+                height: 10px;
+                background-color: transparent;
+                border: 2px solid #000;
+                border-radius: 10px;
+                margin-left: 5px;
+            }
+        }
+        .displayCard-date{
+            text-align: left;
+            //margin-bottom: .5rem;
+            h4{
+                font-weight: 100;
+            }
+            .date-line{
+                margin-top: .5rem;
+                width: 50px;
+                height: 2px;
+                background-color: #000;
+            }
+        }
+        .displayCard-weather{
+            display: grid;
+            grid-template-columns: 1fr auto;
+            .displayCard-temp{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                h1{
+                    font-size: 100px;
+                }
+                h2{
+                    font-size: 40px;
+                    margin-bottom: auto;
+                    //margin-top: 10px;
+                }
+            }
+            img{
+                margin: auto 0;
+            }
+        }
+        .displayCard-info{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20%;
+            div{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+    .displayCard-back{
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: calc(100% - 48px);
+        height: calc(100% - 48px);
+
+        img{
+            cursor: pointer;
+            width: 25px;
+            float: left;
+        }
+        ul.displayCard-infoAdditional{
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: calc(100% - 104px);
+            li{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        button.delete-card{
+            background-color: #FF8282;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 5px 0;
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 1px;
+            &:hover{
+                background-color: #FF4141;
+                cursor: pointer;
+            }
+        }
+    }
+
+}
