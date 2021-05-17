@@ -5,8 +5,15 @@ import backArrow from '../images/back_arrow.png';
 
 import { useRef, useState } from 'react';
 
+const sunTime = (unix)=>{
+    var date = new Date(unix * 1000);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var formattedTime = hours + ':' + minutes.substr(-2)
+    return formattedTime;
+};
 
-const DisplayCard = () => {
+const DisplayCard = (props) => {
     
     const [flip, setFlip] = useState(false);
     const [hover, setHover] = useState(false);
@@ -15,13 +22,17 @@ const DisplayCard = () => {
     const backCard = useRef();
 
     const dotStyle = hover ? {backgroundColor: "#000"}:{};
+
+    const cityData = props.city;
+
     
     return (
+        
         <div className = {flip ? 'displayCard-Container displayCard-flip' : 'displayCard-Container'}>
             
             <div className="displayCard-front" ref={frontCard}>
                 <div className= 'displayCard-header'>
-                    <h1>Seattle</h1>
+                    <h1>{cityData.name}</h1>
                     <span className="menu" onMouseEnter ={() => setHover(true)} onMouseLeave ={() => setHover(!hover)} onClick={()=> setFlip(!flip)}>
                         <div className="dot" style={dotStyle}/>
                         <div className="dot" style={dotStyle}/>
@@ -30,13 +41,13 @@ const DisplayCard = () => {
                 </div>
 
                 <div className="displayCard-date">
-                    <h4>Mon, 1:00PM, Mostly Sunny</h4>
+                    <h4>Mon, 1:00PM, Cloudy</h4>
                     <div className="date-line" />
                 </div>
 
                 <div className="displayCard-weather">
                     <div className="displayCard-temp">
-                        <h1>75</h1>
+                        <h1>{Math.round(cityData.main.temp)}</h1>
                         <h2>°F</h2>
                     </div>
                     <img src={CloudSun} alt="Weather Icon" />
@@ -44,11 +55,11 @@ const DisplayCard = () => {
                 <div className="displayCard-info">
                     <div>
                         <h4 className="text-faded">MIN</h4>
-                        <h3>68</h3>
+                        <h3>{Math.round(cityData.main.temp_min)}</h3>
                     </div>
                     <div>
                         <h4 className="text-faded">MAX</h4>
-                        <h3>81</h3>
+                        <h3>{Math.round(cityData.main.temp_max)}</h3>
                     </div>
                 </div>
             </div>
@@ -59,8 +70,8 @@ const DisplayCard = () => {
                 <img src={backArrow} alt="Back Arrow" onClick={()=> setFlip(!flip)}/>
                 <ul className="displayCard-infoAdditional">
                     <li>
-                        <h4 className="text-faded">PRECIPITATION</h4>
-                        <h3>20%</h3>
+                        <h4 className="text-faded">FEELS LIKE</h4>
+                        <h3>{Math.round(cityData.main.feels_like)}°F</h3>
                     </li>
                     <li>
                         <h4 className="text-faded">VISIBILITY</h4>
@@ -68,15 +79,15 @@ const DisplayCard = () => {
                     </li>
                     <li>
                         <h4 className="text-faded">HUMIDITY</h4>
-                        <h3>16%</h3>
+                        <h3>{cityData.main.humidity}%</h3>
                     </li>
                     <li>
                         <h4 className="text-faded">SUNRISE</h4>
-                        <h3>5:59 am</h3>
+                        <h3>{sunTime(cityData.sys.sunrise)} am</h3>
                     </li>
                     <li>
                         <h4 className="text-faded">SUNSET</h4>
-                        <h3>8:47 pm</h3>
+                        <h3>{sunTime(cityData.sys.sunset)} pm</h3>
                     </li>
                 </ul>
                 <button className="delete-card">Delete</button>
