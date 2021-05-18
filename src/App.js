@@ -20,20 +20,24 @@ function App() {
     })
   }
   const updateCities = () =>{
-    fetchAPI()
-    console.log(cities)
+    fetchAPI();
   }
-
+  const removeCard = (id) => {
+    const filteredList = cities.filter((city) => city.id !== id);
+    setCities(filteredList);
+  };
   return (
     <div className="App">
       <SearchCard 
         func = {updateCities}
       />
-      {cities.map((city, index)=>{
+      {cities.map((city)=>{
         return(
           <DisplayCard 
-          key = {index} 
-          city={city} />
+          key = {city.id} 
+          city={city} 
+          func={()=> removeCard(city.id)}
+          />
         )
       })}
     </div>

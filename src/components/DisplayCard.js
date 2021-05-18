@@ -9,12 +9,13 @@ const sunTime = (unix)=>{
     var date = new Date(unix * 1000);
     var hours = date.getHours();
     var minutes = "0" + date.getMinutes();
+    var displayedTime;
     if (hours > 12){
-        var formattedTime = (hours - 12) + ':' + minutes.substr(-2) + 'pm'
+        displayedTime = (hours - 12) + ':' + minutes.substr(-2) + 'pm'
     } else{
-        var formattedTime = hours + ':' + minutes.substr(-2) + 'am'
+        displayedTime = hours + ':' + minutes.substr(-2) + 'am'
     }
-    return formattedTime;
+    return displayedTime;
 };
 
 const DisplayCard = (props) => {
@@ -95,7 +96,7 @@ const DisplayCard = (props) => {
                         <h3>{sunTime(cityData.sys.sunset)}</h3>
                     </li>
                 </ul>
-                <button className="delete-card">Delete</button>
+                <button className="delete-card" onClick={props.func}>Delete</button>
                 
             </div>
             
